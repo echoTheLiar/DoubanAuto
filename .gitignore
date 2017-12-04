@@ -1,5 +1,4 @@
 *.pyc
-
 *.log
 *.jpg
-*.txt
+.idea/
