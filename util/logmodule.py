@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import logging
 import datetime
+import logging
 import os
 
-import filepath
+from config import filepath
 
 
 class LogModule:

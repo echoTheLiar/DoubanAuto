@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-import requests
-import re
-import time
 import os
+import time
+import requests
 from lxml import etree
 
-import filepath
 import logmodule
-import doubanurl
+from config import doubanurl, filepath
 
 logger = logmodule.LogModule()
 group_dict = dict()
@@ -27,7 +25,7 @@ def get_cookies():
 
 
 def get_active_group_set():
-    # 获取所有活跃（人数超过10000）小组的id，存入set中
+    # 获取所有非常活跃小组的id，存入set中
 
     active_group_set = set()
     with open(filepath.active_group_id_txt, "r") as f_agit:
@@ -74,7 +72,7 @@ def group_name_to_id(group_name):
         logger.info("key already exists: " + group_name + "<->" + group_dict[group_name])
         return group_dict[group_name]
     else:
-        group_url = doubanurl.DOUBAN_SITE + group_name
+        group_url = doubanurl.DOUBAN_GROUP + group_name
         r = requests.get(group_url, cookies=get_cookies())
         if r.status_code == 200:
             group_html = etree.HTML(r.text)
@@ -87,7 +85,7 @@ def group_name_to_id(group_name):
             time.sleep(1)
             return group_id[0]
         else:
-            logger.warning("fail to transform in name_to_id func: " + str(group_url) + " "+ str(r.status_code))
+            logger.warning("fail to transform in name_to_id func: " + str(group_url) + " " + str(r.status_code))
             return group_name
 
 
@@ -102,21 +100,16 @@ def cache_group_name_id():
                 group_dict[g_name] = g_id
 
 
-def init_func():
-    # 载入缓存的字典
-    cache_group_name_id()
-
-
-def get_verify_code_pic(group_id):
+def get_verify_code_pic(url):
     # 获取验证码的图片URL和id
 
-    topic_new_url = doubanurl.DOUBAN_GROUP + str(group_id) + "/new_topic"
-    r = requests.get(topic_new_url, cookies=get_cookies())
+    r = requests.get(url, cookies=get_cookies())
     if r.status_code == 200:
         pic_url, pic_id = get_image_and_id(r.text)
+        logger.info(str(pic_url))
         return pic_url, pic_id
     else:
-        logger.warning(str(topic_new_url) + ", status_code: " + str(r.status_code))
+        logger.warning(str(url) + ", status_code: " + str(r.status_code))
         return "", ""
 
 
@@ -132,14 +125,48 @@ def get_image_and_id(text):
         return "", ""
 
 
-def get_form_ck_from_new_post(url):
+def get_form_ck_from_new_post(group_id):
     # 获取发帖需要的ck，ck值会随着用户的切换而变化，ck值隐藏在发帖的form表单中
 
+    url = doubanurl.DOUBAN_GROUP + str(group_id) + "/new_topic"
     r = requests.get(url, cookies=get_cookies())
-    html = etree.HTML(r.text)
-    ck = html.xpath("//form[@name='lzform']//input[@name='ck']/@value")
-    if len(ck):
-        return ck[0]
-    else:
-        return ""
+    form_ck_xpath = "//form[@name='lzform']//input[@name='ck']/@value"
+    return get_value_from_html(r.text, form_ck_xpath)
 
+
+def get_value_from_html(html_text, xpath_exp):
+    # 在指定的html文本中，提取指定xpath规则的单一元素/属性/值
+
+    try:
+        html = etree.HTML(html_text)
+        value = html.xpath(xpath_exp)
+        if len(value):
+            return value[0]
+        else:
+            return ""
+    except Exception as e:
+        logger.error("in func get_value_from_html();" + str(e.message))
+
+
+def get_value_from_group_url(url, func):
+    # 从给定的url中按照指定的函数func获得单一元素/属性/值
+
+    try:
+        r = requests.get(url, cookies=get_cookies())
+        if r.status_code == 200:
+            value = func(r.text)
+            if len(value):
+                logger.info(str(value))
+            else:
+                logger.warning("the value is empty:" + str(value))
+            return value
+        else:
+            logger.warning(str(url) + ", status_code: " + str(r.status_code))
+            return ""
+    except Exception as e:
+        logger.error("in func get_value_from_group_url(), url=" + str(url) + ";" + str(e.message))
+
+
+def init_func():
+    # 载入缓存的字典
+    cache_group_name_id()

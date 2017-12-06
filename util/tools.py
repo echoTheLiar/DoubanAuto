@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import requests
 import hashlib
 import os
+import requests
 
 import doubanutil
-import filepath
+from config import filepath
 
 
 def save_pic_to_disk(pic_url):
@@ -25,6 +25,4 @@ def save_pic_to_disk(pic_url):
         return file_name
     except Exception as e:
         doubanutil.logger.error(e.message)
-        return ""
-
 

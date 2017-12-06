@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import requests
 
-import util.logmodule as logmodule
-import util.doubanurl as doubanurl
-import util.doubanutil as doubanutil
+from util import doubanutil
+from util import tools
+from verifycode import wordrecognition
 
 
 def comment_topic(topic_url, comment_dict):
@@ -13,3 +13,22 @@ def comment_topic(topic_url, comment_dict):
                       data=comment_dict)
     doubanutil.logger.info("in func comment_topic(), " +
                            str(comment_dict) + ", status_code: " + str(r.status_code))
+
+
+def make_comment_dict(group_id, topic_url, rv_comment):
+    # 组装回帖的参数
+
+    pic_url, pic_id = doubanutil.get_verify_code_pic(topic_url)
+    verify_code = ""
+    if len(pic_url):
+        pic_path = tools.save_pic_to_disk(pic_url)
+        verify_code = wordrecognition.get_word_in_pic(pic_path)
+    comment_dict = {
+        "ck": doubanutil.get_form_ck_from_new_post(group_id),
+        "rv_comment": rv_comment,
+        "start": 0,
+        "captcha-solution": verify_code,
+        "captcha-id": pic_id,
+        "submit_btn": "加上去"
+    }
+    return comment_dict

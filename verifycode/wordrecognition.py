@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
-import urllib, urllib2, base64, json, sys
+import urllib
+import urllib2
+import base64
+import json
+import sys
+
 import accesstoken
-import util.doubanutil as doubanutil
+from util import doubanutil
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -34,4 +39,3 @@ def get_word_in_pic(pic_path):
             return ""
     else:
         return ""
-
