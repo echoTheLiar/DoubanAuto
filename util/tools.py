@@ -22,7 +22,10 @@ def save_pic_to_disk(pic_url):
             if not os.path.exists(file_name):
                 with open(file_name, "wb") as f:
                     f.write(res.content)
-        return file_name
+            return file_name
+        else:
+            doubanutil.logger.warning("in func save_pic_to_disk(), fail to save pic. pic_url: " + pic_url +
+                                      ", res.status_code: " + res.status_code)
+            return ""
     except Exception as e:
         doubanutil.logger.error(e.message)
-
