@@ -10,6 +10,7 @@ def auto_remove_topic(remove_topic_url):
     r = requests.get(remove_topic_url, cookies=doubanutil.get_cookies())
     doubanutil.logger.info(
         "in func auto_remove_topic(), " + str(remove_topic_url) + ", status_code: " + str(r.status_code))
+    return r
 
 
 def get_remove_topic_url(topic_url):

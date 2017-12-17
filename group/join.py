@@ -10,6 +10,7 @@ def auto_join_group(join_group_url):
 
     r = requests.get(join_group_url, cookies=doubanutil.get_cookies())
     doubanutil.logger.info("in func auto_join_group(), " + str(join_group_url) + ", status_code: " + str(r.status_code))
+    return r
 
 
 def get_join_group_url(group_id):

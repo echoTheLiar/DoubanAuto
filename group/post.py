@@ -14,6 +14,7 @@ def post_new_topic(group_url, topic_dict):
                       data=topic_dict)
     doubanutil.logger.info("in func post_new_topic(), " +
                            str(group_url) + ", status_code: " + str(r.status_code))
+    return r
 
 
 def make_topic_dict(group_id, rev_title, rev_text):

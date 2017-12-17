@@ -13,6 +13,7 @@ def comment_topic(topic_url, comment_dict):
                       data=comment_dict)
     doubanutil.logger.info("in func comment_topic(), " +
                            str(comment_dict) + ", status_code: " + str(r.status_code))
+    return r
 
 
 def make_comment_dict(group_id, topic_url, rv_comment):

@@ -10,6 +10,7 @@ def auto_quit_group(quit_group_url):
 
     r = requests.get(quit_group_url, cookies=doubanutil.get_cookies())
     doubanutil.logger.info("in func auto_quit_group(), " + str(quit_group_url) + ", status_code: " + str(r.status_code))
+    return r
 
 
 def get_quit_group_url(group_id):

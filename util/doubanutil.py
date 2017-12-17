@@ -169,4 +169,5 @@ def get_value_from_group_url(url, func):
 
 def init_func():
     # 载入缓存的字典
+
     cache_group_name_id()
