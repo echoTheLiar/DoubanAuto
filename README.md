@@ -29,6 +29,7 @@ Automatic Robot for Douban
 
 - 验证码识别模块调用百度AI平台提供的接口，具体见：[百度OCR技术文档](https://cloud.baidu.com/doc/OCR/index.html)   
 - [auig_name_id.txt](./data/auig_name_id.txt)为豆瓣小组的名称与id映射文件，因为部分小组有个性域名，统一为id
+- 如果需批量调用某项操作，所有操作之间控制好频率，以防止豆瓣账号被封禁
 - 项目持续更新中，更多信息请见[CSDN博客文章](http://blog.csdn.net/doleria/article/details/78733899)
 
 ## 版本历史
