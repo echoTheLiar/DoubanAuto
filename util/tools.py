@@ -11,6 +11,8 @@ def save_pic_to_disk(pic_url):
     # 将链接中的图片保存到本地，并返回文件名
 
     try:
+        if not os.path.exists(filepath.image_path):
+            os.mkdir(filepath.image_path)
         res = requests.get(pic_url)
         if res.status_code == 200:
             # 求取图片的md5值，作为文件名，以防存储重复的图片
