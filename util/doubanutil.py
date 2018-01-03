@@ -15,13 +15,12 @@ def get_cookies():
     # 获取豆瓣登录Cookie信息
 
     cookies = {}
-    cookies_file = filepath.cookie_txt
-    f_cookie = file(cookies_file, "r")
-    douban_cookies = f_cookie.readlines()[0].split("; ")
-    for line in douban_cookies:
-        key, value = line.split("=", 1)
-        cookies[key] = value
-    return cookies
+    with open(filepath.cookie_txt, "r") as f_cookie:
+        douban_cookies = f_cookie.readlines()[0].split("; ")
+        for line in douban_cookies:
+            key, value = line.split("=", 1)
+            cookies[key] = value
+        return cookies
 
 
 def get_active_group_set():
@@ -132,6 +131,13 @@ def get_form_ck_from_new_post(group_id):
     r = requests.get(url, cookies=get_cookies())
     form_ck_xpath = "//form[@name='lzform']//input[@name='ck']/@value"
     return get_value_from_html(r.text, form_ck_xpath)
+
+
+def get_form_ck_from_cookie():
+    # 从cookie中获取ck值
+
+    douban_cookies = get_cookies()
+    return douban_cookies["ck"]
 
 
 def get_value_from_html(html_text, xpath_exp):
