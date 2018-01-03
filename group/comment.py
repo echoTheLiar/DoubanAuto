@@ -25,7 +25,7 @@ def make_comment_dict(group_id, topic_url, rv_comment):
         pic_path = tools.save_pic_to_disk(pic_url)
         verify_code = wordrecognition.get_word_in_pic(pic_path)
     comment_dict = {
-        "ck": doubanutil.get_form_ck_from_cookie(group_id),
+        "ck": doubanutil.get_form_ck_from_cookie(),
         "rv_comment": rv_comment,
         "start": 0,
         "captcha-solution": verify_code,

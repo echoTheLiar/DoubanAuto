@@ -27,7 +27,7 @@ def make_topic_dict(group_id, rev_title, rev_text):
         pic_path = tools.save_pic_to_disk(pic_url)
         verify_code = wordrecognition.get_word_in_pic(pic_path)
     topic_dict = {
-        "ck": doubanutil.get_form_ck_from_cookie(group_id),
+        "ck": doubanutil.get_form_ck_from_cookie(),
         "rev_title": rev_title,
         "rev_text": rev_text,
         "captcha-solution": verify_code,
