@@ -124,17 +124,8 @@ def get_image_and_id(text):
         return "", ""
 
 
-def get_form_ck_from_new_post(group_id):
-    # 获取发帖需要的ck，ck值会随着用户的切换而变化，ck值隐藏在发帖的form表单中
-
-    url = doubanurl.DOUBAN_GROUP + str(group_id) + "/new_topic"
-    r = requests.get(url, cookies=get_cookies())
-    form_ck_xpath = "//form[@name='lzform']//input[@name='ck']/@value"
-    return get_value_from_html(r.text, form_ck_xpath)
-
-
 def get_form_ck_from_cookie():
-    # 从cookie中获取ck值
+    # 从cookie中获取ck值（ck: post操作表单隐藏字段）
 
     douban_cookies = get_cookies()
     return douban_cookies["ck"]
