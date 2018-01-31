@@ -16,7 +16,7 @@ def comment_topic(topic_url, comment_dict):
     return r
 
 
-def make_comment_dict(group_id, topic_url, rv_comment):
+def make_comment_dict(topic_url, rv_comment):
     # 组装回帖的参数
 
     pic_url, pic_id = doubanutil.get_verify_code_pic(topic_url)

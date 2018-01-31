@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import random
+import time
 import requests
 from lxml import etree
 
@@ -16,7 +18,8 @@ if __name__ == "__main__":
     group_topics = group_topics[5:]
     for topic_url in group_topics:
         comment_topic_url = topic_url + "/add_comment#last"
-        comment_str = "up"
-        comment_dict = comment.make_comment_dict(group_id, topic_url, comment_str)
+        comment_str = "自动帮你顶帖 \n from https://github.com/echoTheLiar/DoubanAuto"
+        comment_dict = comment.make_comment_dict(topic_url, comment_str)
         comment.comment_topic(comment_topic_url, comment_dict)
-
+        random_sleep = random.randint(100, 500)
+        time.sleep(random_sleep)
