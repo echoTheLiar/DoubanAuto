@@ -21,7 +21,7 @@ Automatic Robot for Douban
 ## 调用示例
 
 - [自动加入小组](example/autojoin.py)
-    - 演示加入豆瓣活跃小组（成员超过10000人），其中用到的活跃小组id文件（[active_group_id.txt](http://download.csdn.net/download/doleria/10143962)）实时性较强，此处未提供；
+    - 演示自动加入豆瓣小组；
 - [自动退出小组](example/autoquit.py)
     - 演示自动退出已加入的小组
     - 会退出所有已加入小组，谨慎使用！！！
@@ -43,6 +43,3 @@ Automatic Robot for Douban
 
 ## 版本历史
 - [V1.0](version/V1.0.md)
-
-## 交流建议
-- 欢迎批评指正，提出意见（使用过程中遇到任何问题，都可邮件联系）：liu_yuning@foxmail.com 
