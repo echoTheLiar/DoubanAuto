@@ -15,7 +15,7 @@ class LogModule:
             os.mkdir(filepath.log_path)
         os.chdir(filepath.log_path)
         if not os.path.exists(log_file):
-            file(log_file, "a+")
+            open(log_file, "a+")
         self.logger = logging.getLogger(log_file)
         self.logger.setLevel(logging.DEBUG)
         fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')

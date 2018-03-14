@@ -3,7 +3,7 @@ import hashlib
 import os
 import requests
 
-import doubanutil
+from util import doubanutil
 from config import filepath
 
 

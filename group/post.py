@@ -2,8 +2,7 @@
 import requests
 
 from config import doubanurl
-from util import doubanutil
-from util import tools
+from util import doubanutil, tools
 from verifycode import wordrecognition
 
 

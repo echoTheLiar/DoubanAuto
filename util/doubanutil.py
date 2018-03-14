@@ -4,7 +4,7 @@ import time
 import requests
 from lxml import etree
 
-import logmodule
+from util import logmodule
 from config import doubanurl, filepath
 
 logger = logmodule.LogModule()

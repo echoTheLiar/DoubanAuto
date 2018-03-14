@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 import urllib
-import urllib2
 import base64
 import json
-import sys
 
-import accesstoken
+from verifycode import accesstoken
 from util import doubanutil
-
-reload(sys)
-sys.setdefaultencoding("utf-8")
 
 
 def get_word_in_pic(pic_path):
@@ -23,13 +18,13 @@ def get_word_in_pic(pic_path):
     # 参数image：图像base64编码
     img = base64.b64encode(f.read())
     params = {"image": img}
-    params = urllib.urlencode(params)
-    request = urllib2.Request(url, params)
+    params = urllib.parse.urlencode(params).encode(encoding="utf-8")
+    request = urllib.request.Request(url, params)
     request.add_header('Content-Type', 'application/x-www-form-urlencoded')
-    response = urllib2.urlopen(request)
+    response = urllib.request.urlopen(request)
     content = response.read()
     if content:
-        doubanutil.logger.info(content)
+        doubanutil.logger.info("baidu OCR API returns: "+ str(content))
         content = json.loads(content)
         words_result = content["words_result"]
         if len(words_result):

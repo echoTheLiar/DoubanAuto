@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 
-from util import doubanutil
-from util import tools
+from util import doubanutil, tools
 from verifycode import wordrecognition
 
 
